@@ -1,4 +1,4 @@
-DSA (Data Structures & Algorithms)
+#DSA (Data Structures & Algorithms)
 
 This repository contains Python implementations of fundamental Data Structures and Algorithms (DSA). It serves as a collection of essential problem-solving techniques, useful for coding interviews and competitive programming.
 
