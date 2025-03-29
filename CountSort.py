@@ -16,10 +16,8 @@ def countSort(arr):
     # count_array = [0*i for i in range(max+1)]
 
     # filling the count array
-    for i in range(len(count_array)):
-        for j in arr:
-            if i == j:
-                count_array[i]+=1
+    for num in arr:
+        count_array[num]+=1
 
     # sort array
     sorted_array = []
