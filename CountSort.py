@@ -9,7 +9,6 @@ def find_max(arr):
     return max_element
 
 def countSort(arr):
-    
     max_element = find_max(arr)
     # creating count array 
     count_array = [0]*(max_element+1)
@@ -19,16 +18,21 @@ def countSort(arr):
     for num in arr:
         count_array[num]+=1
 
+    # calculating the prefix 
+    for i in range(1,len(count_array)):
+        count_array[i] += count_array[i-1]
+
     # sort array
-    sorted_array = []
-    for i in range(len(count_array)):
-        if count_array[i]!=0:
-            sorted_array.extend([i] * count_array[i])
+    # starting from the last element so that it maintains the stability 
+    sorted_array = [0]*len(arr)
+    for num in reversed(arr):
+        sorted_array[count_array[num]-1] = num
+        count_array[num]-=1
 
     return sorted_array
 
 # taking user input
 if __name__ == '__main__':
     arr = list(map(int , input('Enter elements with space  - ').split()))   
-    print(countSort(arr))
+    print('Sorted Array - ' , countSort(arr))
 
