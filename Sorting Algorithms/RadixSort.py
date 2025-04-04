@@ -36,7 +36,7 @@ def CountSort(arr , radix):
 
 def RadixSort(arr):
     ''' sorting the array according to Radix '''
-
+    # THE SORTING ALGO IS BASED ON LSD -> MSD
     max_num = find_max(arr)
     radix = 1
 
