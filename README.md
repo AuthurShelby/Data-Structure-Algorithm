@@ -6,13 +6,13 @@ This repository contains Python implementations of fundamental Data Structures a
 
 ✔ Arrays – Basic operations and manipulations
 
-✔ Linked Lists – Singly and doubly linked list implementations
-
 ✔ Sorting Algorithms – Bubble Sort, Quick Sort, Merge Sort, etc.
 
 ✔ Searching Algorithms – Binary Search, Linear Search, etc.
 
 ✔ Tower of Hanoi (TOH) – Recursive solution
+
+✔ Data Structures - Linked List , Stack (implementted using LL)
 
 🛠 Features:
 Pure Python implementations
