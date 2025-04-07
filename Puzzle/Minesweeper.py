@@ -11,7 +11,7 @@ DIRECTIONS = [(-1, -1), (-1, 0), (-1, 1),
               (1, -1), (1, 0), (1, 1)]
 
 # setting the difficulty of the game.
-# Accordint to difficulty the no.of mines vary.
+# According to difficulty the no.of mines vary.
 print('Enter the difficulty level you want:')
 print(' 1) Easy\n 2) Medium\n 3) Hard')
 difficulty = int(input('Choose (1/2/3): '))
@@ -71,13 +71,40 @@ def create_board():
 # for revealing the cells 
 
 # (0,0) — (0,1) — (0,2)
-  |       |       |
+#  |       |       |
 # (1,0) — (1,1) — (1,2)
-  |       |       |
+#  |       |       |
 # (2,0) — (2,1) — (2,2)
 
 def reveal_empty_cell(board , visible , start_row , start_col):
-  pass
+
+  # if the starting cell is a number or a mine
+  if board[start_row][start_col] !='.':
+    visible[start_row][start_col] = True
+    return 
+
+  # intializing the queue with start_row & start_col
+  queue = deque()
+  queue.append((start_row , start_col))
+
+  while queue:
+    # poping out each of the cell row & col values to be revealed 
+    row , col = queue.popleft()
+
+    # checking boundries 
+    if row < 0 or row >= ROWS or col < 0 or col >= COLS or visible[row][col]:
+      continue
+    
+    # if it passes the conditon of boundries 
+    visible[row][col] = True
+    
+    if board[row][col] == '.':
+      # if it is empty then checks the neighboring cells
+      for d_row , d_col in DIRECTIONS:
+        new_row , new_col = d_row+row , d_col+col
+        # again checks if it is not crossing the boundry 
+        if 0 <= new_row < ROWS and 0 <= new_col < COLS and not visible[new_row][new_col]:
+          queue.append((new_row , new_col))
 
 # printing board
 def print_board(board , visible):
@@ -92,7 +119,22 @@ def play_minesweeper():
 
   board = create_board()
   # cells that are visible to the player
-  visible = [[False]*COLS for i in range(ROWS)]
+  visible = [[False]*COLS for _ in range(ROWS)]
+  while True:
+    print_board(board , visible)
+    # if the user gives without space
+    print('\nRow and Column index starts from 0')
+    row , col = (int(input('Enter the row value : ')) , int(input('Enter the column value : ')))
+    
+    if board[row][col] == 'M':
+      print('Game Over! , You hit a mine.')
+      break
   
+    reveal_empty_cell(board , visible , row , col)
+
+  # printing the whole after it exits the loop 
+  print_board(board , [[True]*COLS for _ in range(ROWS)])
+
 if __name__ == '__main__':
+  # start the game
   play_minesweeper()
