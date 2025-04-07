@@ -1,4 +1,5 @@
 import random 
+from collections import deque
 
 # size is board size like eg :- 5x5
 SIZE = int(input('Enter the size of the board you want :- '))
@@ -68,7 +69,14 @@ def create_board():
 
 # flood-fill algorithm implemented using BFS 
 # for revealing the cells 
-def reveal_empty_cell():
+
+# (0,0) — (0,1) — (0,2)
+  |       |       |
+# (1,0) — (1,1) — (1,2)
+  |       |       |
+# (2,0) — (2,1) — (2,2)
+
+def reveal_empty_cell(board , visible , start_row , start_col):
   pass
 
 # printing board
@@ -86,12 +94,5 @@ def play_minesweeper():
   # cells that are visible to the player
   visible = [[False]*COLS for i in range(ROWS)]
   
-  while True:
-    print_board(board , visible)
-    row , col = map(int , input('Enter the row & col with space (index starts 0) --- ').split())
-    if board[row][col] == 'M':
-      print('Stop')
-      break
-
 if __name__ == '__main__':
   play_minesweeper()
