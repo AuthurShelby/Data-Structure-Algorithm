@@ -4,6 +4,11 @@ import random
 SIZE = int(input('Enter the size of the board you want :- '))
 ROWS , COLS = SIZE , SIZE 
 
+# for flood-fill algorithm 
+DIRECTIONS = [(-1, -1), (-1, 0), (-1, 1),
+              (0, -1),         (0, 1),
+              (1, -1), (1, 0), (1, 1)]
+
 # setting the difficulty of the game.
 # Accordint to difficulty the no.of mines vary.
 print('Enter the difficulty level you want:')
@@ -49,8 +54,44 @@ def create_board():
 
       # making changes in the board
       # setting 'M' for mine
-      board[row_index][col_index] = 'M'  
+      board[row_index][col_index] = 'M'
+    
+    # setting the count of the mines for the neigbhouring cells 
+    for row in range(ROWS):
+      for col in range(COLS):
+        if board[row][col] == 'M':
+            continue
+        counts = sum((row+dr , col+dc)in mines for dr , dc in DIRECTIONS) # check all the 8 direction of a cell
+        board[row][col] = counts if counts > 0 else '.' # '.' are for the empty space
 
   return board
 
+# flood-fill algorithm implemented using BFS 
+# for revealing the cells 
+def reveal_empty_cell():
+  pass
 
+# printing board
+def print_board(board , visible):
+
+    for row in range(ROWS):
+      for col in range(COLS):
+        print(board[row][col] if visible[row][col] else '■',end=' ')
+      print()
+    print()
+
+def play_minesweeper():
+
+  board = create_board()
+  # cells that are visible to the player
+  visible = [[False]*COLS for i in range(ROWS)]
+  
+  while True:
+    print_board(board , visible)
+    row , col = map(int , input('Enter the row & col with space (index starts 0) --- ').split())
+    if board[row][col] == 'M':
+      print('Stop')
+      break
+
+if __name__ == '__main__':
+  play_minesweeper()
