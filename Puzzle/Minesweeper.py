@@ -1,5 +1,6 @@
 import random
 from collections import deque
+import time
 import os
 
 # size is board size like eg :- 5x5
@@ -35,6 +36,12 @@ print(f'Board Size - {SIZE}')
 print(f'Game Difficulty - {difficulty}')
 print(f'Mines set - {MINES}')
 
+# emoji mapping for numbers
+emoji_map = {
+    1: '1️⃣', 2: '2️⃣', 3: '3️⃣', 4: '4️⃣',
+    5: '5️⃣', 6: '6️⃣', 7: '7️⃣', 8: '8️⃣'
+}
+
 # creating the board
 def create_board():
 
@@ -55,16 +62,16 @@ def create_board():
       mines.add((row_index , col_index))
 
       # making changes in the board
-      # setting 'M' for mine
-      board[row_index][col_index] = 'M'
+      # setting 💣 for mine
+      board[row_index][col_index] = '💣'
 
     # setting the count of the mines for the neigbhouring cells
     for row in range(ROWS):
       for col in range(COLS):
-        if board[row][col] == 'M':
+        if board[row][col] == '💣':
             continue
         counts = sum((row+dr , col+dc)in mines for dr , dc in DIRECTIONS) # check all the 8 direction of a cell
-        board[row][col] = counts if counts > 0 else '.' # '.' are for the empty space
+        board[row][col] = emoji_map[counts] if counts > 0 else '⬜' # ⬜ are for the empty space
 
   return board
 
@@ -80,7 +87,7 @@ def create_board():
 def reveal_empty_cell(board , visible , start_row , start_col):
 
   # if the starting cell is a number or a mine
-  if board[start_row][start_col] !='.':
+  if board[start_row][start_col] !='⬜':
     visible[start_row][start_col] = True
     return
 
@@ -99,7 +106,7 @@ def reveal_empty_cell(board , visible , start_row , start_col):
     # if it passes the conditon of boundries
     visible[row][col] = True
 
-    if board[row][col] == '.':
+    if board[row][col] == '⬜':
       # if it is empty then checks the neighboring cells
       for d_row , d_col in DIRECTIONS:
         new_row , new_col = d_row+row , d_col+col
@@ -112,16 +119,16 @@ def print_board(board , visible):
 
     for row in range(ROWS):
       for col in range(COLS):
-        print(board[row][col] if visible[row][col] else '■',end=' ')
+        print(board[row][col] if visible[row][col] else '🟪',end=' ')
       print()
     print()
 
-# checks if all the cells revealed except the mines 
+# checks if all the cells revealed except the mines
 def check_win(board , visible):
 
   for row in range(ROWS):
     for col in range(COLS):
-      if board[row][col]!='M' and not visible[row][col]:
+      if board[row][col]!='💣' and not visible[row][col]:
         return False
 
   return True
@@ -132,11 +139,11 @@ def play_minesweeper():
   board = create_board()
   # cells that are visible to the player
   visible = [[False]*COLS for _ in range(ROWS)]
-  # first turn 
+  # first turn
   first_turn = True
-  
+
   while True:
-    
+
     # refreashing the board after each moves
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -146,7 +153,7 @@ def play_minesweeper():
       print('→ The board uses 0-based indexing (Row and Column values start from 0).')
       print('→ Enter the row and column index to reveal a cell.')
       print('→ Try to reveal all safe cells without hitting a mine .')
-      print('→ Cells marked with ■ are unrevealed.')
+      print('→ Cells 🟪 marked with  are unrevealed.')
       print()
       first_turn = False
 
@@ -162,10 +169,10 @@ def play_minesweeper():
       print('Invalid Coordinates given!')
       continue
 
-    if board[row][col] == 'M':
+    if board[row][col] == '💣':
       print('☠️ Game Over! , You hit a mine.')
       break
-    
+
     reveal_empty_cell(board , visible , row , col)
 
     if check_win(board , visible):
@@ -173,6 +180,7 @@ def play_minesweeper():
       break
 
   # printing the whole after it exits the loop
+  time.sleep(1)
   print('\nFinal board:')
   print_board(board , [[True]*COLS for _ in range(ROWS)])
 if __name__ == '__main__':
