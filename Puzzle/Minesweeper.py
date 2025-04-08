@@ -110,10 +110,6 @@ def reveal_empty_cell(board , visible , start_row , start_col):
 # printing board
 def print_board(board , visible):
 
-    # clearing the board after each moves
-    # nt for windows else for other system
-    os.system('cls' if os.name == 'nt' else 'clear')
-    
     for row in range(ROWS):
       for col in range(COLS):
         print(board[row][col] if visible[row][col] else '■',end=' ')
@@ -133,31 +129,42 @@ def play_minesweeper():
   board = create_board()
   # cells that are visible to the player
   visible = [[False]*COLS for _ in range(ROWS)]
-  while True:
-    print('\n📌 INSTRUCTIONS:')
-    print('→ The board uses 0-based indexing (Row and Column values start from 0).')
-    print('→ Enter the row and column index to reveal a cell.')
-    print('→ Try to reveal all safe cells without hitting a mine 💣.')
-    print('→ Cells marked with ■ are unrevealed.')
-    print()
+  # first turn 
+  first_turn = True
   
+  while True:
+    
+    # clearing the board after each moves
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    # if it's the first turn
+    if first_turn:
+      print('\n📌 INSTRUCTIONS:')
+      print('→ The board uses 0-based indexing (Row and Column values start from 0).')
+      print('→ Enter the row and column index to reveal a cell.')
+      print('→ Try to reveal all safe cells without hitting a mine 💣.')
+      print('→ Cells marked with ■ are unrevealed.')
+      print()
+      first_turn = False
+
     print_board(board , visible)
     # if the user gives without space
     row , col = (int(input('Enter the row value : ')) , int(input('Enter the column value : ')))
 
     if board[row][col] == 'M':
-      print('🌋Game Over! , You hit a mine.')
+      print('🌋 Game Over! , You hit a mine.')
       break
     
     reveal_empty_cell(board , visible , row , col)
 
     if check_win(board , visible):
-      print('🍺congrats you won!')
+      print('🍺 congrats you won!')
       break
 
   # printing the whole after it exits the loop
+  print('\nFinal board:')
   print_board(board , [[True]*COLS for _ in range(ROWS)])
-
+  
 if __name__ == '__main__':
   # start the game
   play_minesweeper()
