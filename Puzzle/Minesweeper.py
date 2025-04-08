@@ -137,7 +137,7 @@ def play_minesweeper():
   
   while True:
     
-    # clearing the board after each moves
+    # refreashing the board after each moves
     os.system('cls' if os.name == 'nt' else 'clear')
 
     # if it's the first turn
@@ -145,7 +145,7 @@ def play_minesweeper():
       print('\n📌 INSTRUCTIONS:')
       print('→ The board uses 0-based indexing (Row and Column values start from 0).')
       print('→ Enter the row and column index to reveal a cell.')
-      print('→ Try to reveal all safe cells without hitting a mine 💣.')
+      print('→ Try to reveal all safe cells without hitting a mine .')
       print('→ Cells marked with ■ are unrevealed.')
       print()
       first_turn = False
@@ -155,7 +155,7 @@ def play_minesweeper():
     row , col = (int(input('Enter the row value : ')) , int(input('Enter the column value : ')))
 
     if board[row][col] == 'M':
-      print('🌋 Game Over! , You hit a mine.')
+      print('☠️ Game Over! , You hit a mine.')
       break
     
     reveal_empty_cell(board , visible , row , col)
