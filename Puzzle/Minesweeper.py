@@ -1,5 +1,6 @@
 import random
 from collections import deque
+import os
 
 # size is board size like eg :- 5x5
 SIZE = int(input('Enter the size of the board you want :- '))
@@ -109,6 +110,10 @@ def reveal_empty_cell(board , visible , start_row , start_col):
 # printing board
 def print_board(board , visible):
 
+    # clearing the board after each moves
+    # nt for windows else for other system
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
     for row in range(ROWS):
       for col in range(COLS):
         print(board[row][col] if visible[row][col] else '■',end=' ')
@@ -129,19 +134,25 @@ def play_minesweeper():
   # cells that are visible to the player
   visible = [[False]*COLS for _ in range(ROWS)]
   while True:
+    print('\n📌 INSTRUCTIONS:')
+    print('→ The board uses 0-based indexing (Row and Column values start from 0).')
+    print('→ Enter the row and column index to reveal a cell.')
+    print('→ Try to reveal all safe cells without hitting a mine 💣.')
+    print('→ Cells marked with ■ are unrevealed.')
+    print()
+  
     print_board(board , visible)
     # if the user gives without space
-    print('\nRow and Column index starts from 0')
     row , col = (int(input('Enter the row value : ')) , int(input('Enter the column value : ')))
 
     if board[row][col] == 'M':
-      print('Game Over! , You hit a mine.')
+      print('🌋Game Over! , You hit a mine.')
       break
     
     reveal_empty_cell(board , visible , row , col)
 
     if check_win(board , visible):
-      print('You won!')
+      print('🍺congrats you won!')
       break
 
   # printing the whole after it exits the loop
