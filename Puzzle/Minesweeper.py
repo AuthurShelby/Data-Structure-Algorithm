@@ -38,8 +38,8 @@ print(f'Mines set - {MINES}')
 
 # emoji mapping for numbers
 emoji_map = {
-    1: '1️⃣', 2: '2️⃣', 3: '3️⃣', 4: '4️⃣',
-    5: '5️⃣', 6: '6️⃣', 7: '7️⃣', 8: '8️⃣'
+    1: '1️⃣ ', 2: '2️⃣ ', 3: '3️⃣ ', 4: '4️⃣ ',
+    5: '5️⃣ ', 6: '6️⃣ ', 7: '7️⃣ ', 8: '8️⃣ '
 }
 
 # creating the board
@@ -170,13 +170,13 @@ def play_minesweeper():
       continue
 
     if board[row][col] == '💣':
-      print('☠️ Game Over! , You hit a mine.')
+      print('☠️  Game Over! , You hit a mine.')
       break
 
     reveal_empty_cell(board , visible , row , col)
 
     if check_win(board , visible):
-      print('🍺 congrats you won!')
+      print('🍺  congrats you won!')
       break
 
   # printing the whole after it exits the loop
