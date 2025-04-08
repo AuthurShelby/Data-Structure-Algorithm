@@ -1,11 +1,11 @@
-import random 
+import random
 from collections import deque
 
 # size is board size like eg :- 5x5
 SIZE = int(input('Enter the size of the board you want :- '))
-ROWS , COLS = SIZE , SIZE 
+ROWS , COLS = SIZE , SIZE
 
-# for flood-fill algorithm 
+# for flood-fill algorithm
 DIRECTIONS = [(-1, -1), (-1, 0), (-1, 1),
               (0, -1),         (0, 1),
               (1, -1), (1, 0), (1, 1)]
@@ -36,12 +36,12 @@ print(f'Mines set - {MINES}')
 
 # creating the board
 def create_board():
-  
-  # Initializing the board 
+
+  # Initializing the board
   board = [[' ' for i in range(COLS)] for i in range(ROWS)]
   # mines to store the position
   mines = set()
-  
+
   # randomly placing the mines until the number of position is equal to MINES
   while len(mines) < MINES:
 
@@ -49,15 +49,15 @@ def create_board():
 
     # if the (row,col) is not in the mines position
     # also this removes the entry of duplicate position
-    if (row_index , col_index) not in mines: 
+    if (row_index , col_index) not in mines:
 
       mines.add((row_index , col_index))
 
       # making changes in the board
       # setting 'M' for mine
       board[row_index][col_index] = 'M'
-    
-    # setting the count of the mines for the neigbhouring cells 
+
+    # setting the count of the mines for the neigbhouring cells
     for row in range(ROWS):
       for col in range(COLS):
         if board[row][col] == 'M':
@@ -67,8 +67,8 @@ def create_board():
 
   return board
 
-# flood-fill algorithm implemented using BFS 
-# for revealing the cells 
+# flood-fill algorithm implemented using BFS
+# for revealing the cells
 
 # (0,0) — (0,1) — (0,2)
 #  |       |       |
@@ -81,28 +81,28 @@ def reveal_empty_cell(board , visible , start_row , start_col):
   # if the starting cell is a number or a mine
   if board[start_row][start_col] !='.':
     visible[start_row][start_col] = True
-    return 
+    return
 
   # intializing the queue with start_row & start_col
   queue = deque()
   queue.append((start_row , start_col))
 
   while queue:
-    # poping out each of the cell row & col values to be revealed 
+    # poping out each of the cell row & col values to be revealed
     row , col = queue.popleft()
 
-    # checking boundries 
+    # checking boundries
     if row < 0 or row >= ROWS or col < 0 or col >= COLS or visible[row][col]:
       continue
-    
-    # if it passes the conditon of boundries 
+
+    # if it passes the conditon of boundries
     visible[row][col] = True
-    
+
     if board[row][col] == '.':
       # if it is empty then checks the neighboring cells
       for d_row , d_col in DIRECTIONS:
         new_row , new_col = d_row+row , d_col+col
-        # again checks if it is not crossing the boundry 
+        # again checks if it is not crossing the boundry
         if 0 <= new_row < ROWS and 0 <= new_col < COLS and not visible[new_row][new_col]:
           queue.append((new_row , new_col))
 
@@ -115,6 +115,14 @@ def print_board(board , visible):
       print()
     print()
 
+def check_win(board , visible):
+  for row in range(ROWS):
+    for col in range(COLS):
+      if board[row][col]!='M' and not visible[row][col]:
+        return False
+
+  return True
+
 def play_minesweeper():
 
   board = create_board()
@@ -125,14 +133,18 @@ def play_minesweeper():
     # if the user gives without space
     print('\nRow and Column index starts from 0')
     row , col = (int(input('Enter the row value : ')) , int(input('Enter the column value : ')))
-    
+
     if board[row][col] == 'M':
       print('Game Over! , You hit a mine.')
       break
-  
+    
     reveal_empty_cell(board , visible , row , col)
 
-  # printing the whole after it exits the loop 
+    if check_win(board , visible):
+      print('You won!')
+      break
+
+  # printing the whole after it exits the loop
   print_board(board , [[True]*COLS for _ in range(ROWS)])
 
 if __name__ == '__main__':
