@@ -116,13 +116,16 @@ def print_board(board , visible):
       print()
     print()
 
+# checks if all the cells revealed except the mines 
 def check_win(board , visible):
+
   for row in range(ROWS):
     for col in range(COLS):
       if board[row][col]!='M' and not visible[row][col]:
         return False
 
   return True
+
 
 def play_minesweeper():
 
@@ -164,7 +167,11 @@ def play_minesweeper():
   # printing the whole after it exits the loop
   print('\nFinal board:')
   print_board(board , [[True]*COLS for _ in range(ROWS)])
-  
 if __name__ == '__main__':
   # start the game
-  play_minesweeper()
+  while True:
+    play_minesweeper()
+    again = input('Do you want to play again (y/n): ').lower()
+    if again !='y':
+      print('Thanks for playing!  bye bye..👋')
+      break
