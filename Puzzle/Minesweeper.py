@@ -152,7 +152,15 @@ def play_minesweeper():
 
     print_board(board , visible)
     # if the user gives without space
-    row , col = (int(input('Enter the row value : ')) , int(input('Enter the column value : ')))
+    try:
+      row , col = (int(input('Enter the row value : ')) , int(input('Enter the column value : ')))
+    except:
+      print('Invalid input!')
+      continue
+
+    if row < 0 or row >= ROWS or col < 0 or col >= COLS:
+      print('Invalid Coordinates given!')
+      continue
 
     if board[row][col] == 'M':
       print('☠️ Game Over! , You hit a mine.')
