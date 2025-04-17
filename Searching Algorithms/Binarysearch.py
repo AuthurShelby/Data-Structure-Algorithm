@@ -1,4 +1,5 @@
 def BinarySearch(arr , target , start , stop):
+    """    Binary Search    """
     if start <= stop:
         mid = (start+stop)//2
         if arr[mid] == target:
@@ -10,5 +11,5 @@ def BinarySearch(arr , target , start , stop):
     return -1
 
 if __name__ == '__main__':
-    arr = [1,1,1,1]
+    arr = list(map(int , input('Enter elements with space - ').split()))
     print(BinarySearch(arr , 1 , 0 , len(arr)-1))
