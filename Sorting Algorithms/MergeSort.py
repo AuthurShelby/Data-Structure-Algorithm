@@ -51,8 +51,8 @@ def MergeSort(arr , start , end):
 # Execution 
 if __name__ == '__main__':
 
-    arr = list(map(int , input('Enter a list with spaces :- ').split()))
+    ARR = list(map(int , input('Enter a list with spaces :- ').split()))
     # calling the MergeSort function
-    MergeSort(arr , 0 , len(arr)-1)
+    MergeSort(ARR , 0 , len(ARR)-1)
     # giving the result of a sorted array
-    print(arr)
+    print(ARR)
