@@ -52,10 +52,9 @@ class BinarySearchTree:
             print(node.data , end=' ')
 
     def search(self ,node , value):
-        
         if node is None:
             return False
-            
+
         # Check if the current node's data matches the value being searched
         if node.data == value:
             return True
@@ -65,7 +64,25 @@ class BinarySearchTree:
         # Otherwise, search in the left subtree
         else:
             return self.search(node.left , value)
+        
+    # for finding the minimum
+    def minimum(self , node):
+        if node is  None:
+            return None
+        current = node
+        while current.left is not None:
+            current = current.left
+        return current.data
 
+    # for finding the maximum
+    def maximum(self, node):
+        if node is None:
+            return None
+        current = node
+        while current.right is not None:
+            current = current.right
+        return current.data
+    
 def display_menu():
     print("\n==== Binary Search Tree Operations ====")
     print("1. Insert a value")
@@ -73,9 +90,11 @@ def display_menu():
     print("3. Display Preorder Traversal")
     print("4. Display Postorder Traversal")
     print("5. Search for a value")
-    print("6. Exit")
+    print("6. Find Minimum Value")
+    print("7. Find Maximum Value")
+    print("8. Exit")
     print("=====================================")
-    return int(input("Enter your choice (1-6): "))
+    return int(input("Enter your choice (1-8): "))
 
 def main():
     bst = BinarySearchTree()
@@ -124,11 +143,24 @@ def main():
                 print("Please enter a valid integer!")
         
         elif choice == 6:
+            minimum_value = bst.minimum(bst.root)
+            if minimum_value:
+                print(f'The minimum number in the tree is {minimum_value}')
+            else:
+                print('The tree is empty!')
+
+        elif choice == 7:
+            maximum_value = bst.maximum(bst.root)
+            if maximum_value:
+                print(f'The maximum number in the tree is {maximum_value}')
+            else:
+                print('The tree is empty!')
+
+        elif choice == 8:
             print("Exiting program. Goodbye!")
             break
-        
         else:
-            print("Invalid choice! Please enter a number between 1 and 6.")
+            print("Invalid choice! Please enter a number between 1 and 8.")
 
 if __name__ == "__main__":
     main()
