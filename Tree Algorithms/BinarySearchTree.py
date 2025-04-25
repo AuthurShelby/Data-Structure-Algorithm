@@ -52,6 +52,10 @@ class BinarySearchTree:
             print(node.data , end=' ')
 
     def search(self ,node , value):
+        
+        if node is None:
+            return False
+            
         # Check if the current node's data matches the value being searched
         if node.data == value:
             return True
