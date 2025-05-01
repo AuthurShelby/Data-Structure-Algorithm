@@ -1,4 +1,3 @@
-
 class Node:
     def __init__(self , data):
         self.data = data
@@ -23,6 +22,36 @@ class BinarySearchTree:
                 root.left = self.insert(root.left , value)
         # Return the root node after insertion
         return root
+    
+    # deleting a node
+    def delete(self, node , value):  
+        if node is None:
+            return None
+        
+        if node.data < value: 
+            node.right = self.delete(node.right , value )
+        elif node.data > value:
+            node.left = self.delete(node.left , value)
+        else:
+            # CASE 1 
+            # if the node has no left or right child
+            if node.left is None and node.right is None:
+                return None
+
+            # CASE 2 
+            # if the node has one child either right or left
+            if node.left is None:
+                return node.right
+            elif node.right is None:
+                return node.left
+
+            # CASE 3 
+            # if the node has both (left & right) child
+            temp = self.minimum(node.right) # this takes the inorder successor (smallest in the right subtree)
+            node.data = temp.data # Replacing the node data with the minimum data of the right child
+            node.right = self.delete(node.right , temp.data)
+    
+        return node
     
      # left ->  root -> right
     def inorder(self , node):
@@ -86,15 +115,16 @@ class BinarySearchTree:
 def display_menu():
     print("\n==== Binary Search Tree Operations ====")
     print("1. Insert a value")
-    print("2. Display Inorder Traversal")
-    print("3. Display Preorder Traversal")
-    print("4. Display Postorder Traversal")
-    print("5. Search for a value")
-    print("6. Find Minimum Value")
-    print("7. Find Maximum Value")
-    print("8. Exit")
+    print("2. Delete a value")
+    print("3. Display Inorder Traversal")
+    print("4. Display Preorder Traversal")
+    print("5. Display Postorder Traversal")
+    print("6. Search for a value")
+    print("7. Find Minimum Value")
+    print("8. Find Maximum Value")
+    print("9. Exit")
     print("=====================================")
-    return int(input("Enter your choice (1-8): "))
+    return int(input("Enter your choice (1-9): "))
 
 def main():
     bst = BinarySearchTree()
@@ -111,27 +141,32 @@ def main():
                 print("Please enter a valid integer!")
         
         elif choice == 2:
+
+            tar = int(input('Enter the value to delete : '))
+            bst.delete(bst.root , tar)
+
+        elif choice == 3:
             print("\nInorder Traversal (Left -> Root -> Right):")
             if bst.root:
                 bst.inorder(bst.root)
             else:
                 print("Tree is empty!")
         
-        elif choice == 3:
+        elif choice == 4:
             print("\nPreorder Traversal (Root -> Left -> Right):")
             if bst.root:
                 bst.preorder(bst.root)
             else:
                 print("Tree is empty!")
         
-        elif choice == 4:
+        elif choice == 5:
             print("\nPostorder Traversal (Left -> Right -> Root):")
             if bst.root:
                 bst.postorder(bst.root)
             else:
                 print("Tree is empty!")
         
-        elif choice == 5:
+        elif choice == 6:
             try:
                 value = int(input("Enter value to search: "))
                 result = bst.search(bst.root, value)
@@ -142,25 +177,25 @@ def main():
             except ValueError:
                 print("Please enter a valid integer!")
         
-        elif choice == 6:
+        elif choice == 7:
             minimum_value = bst.minimum(bst.root)
             if minimum_value:
                 print(f'The minimum number in the tree is {minimum_value}')
             else:
                 print('The tree is empty!')
 
-        elif choice == 7:
+        elif choice == 8:
             maximum_value = bst.maximum(bst.root)
             if maximum_value:
                 print(f'The maximum number in the tree is {maximum_value}')
             else:
                 print('The tree is empty!')
 
-        elif choice == 8:
+        elif choice == 9:
             print("Exiting program. Goodbye!")
             break
         else:
-            print("Invalid choice! Please enter a number between 1 and 8.")
+            print("Invalid choice! Please enter a number between 1 and 9.")
 
 if __name__ == "__main__":
     main()
