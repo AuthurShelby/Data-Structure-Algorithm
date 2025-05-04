@@ -42,6 +42,7 @@ class BinarySearchTree:
             # if the node has one child either right or left
             if node.left is None:
                 return node.right
+        
             elif node.right is None:
                 return node.left
 
@@ -101,7 +102,7 @@ class BinarySearchTree:
         current = node
         while current.left is not None:
             current = current.left
-        return current.data
+        return current
 
     # for finding the maximum
     def maximum(self, node):
@@ -110,7 +111,7 @@ class BinarySearchTree:
         current = node
         while current.right is not None:
             current = current.right
-        return current.data
+        return current
     
 def display_menu():
     print("\n==== Binary Search Tree Operations ====")
