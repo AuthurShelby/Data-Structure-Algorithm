@@ -1,25 +1,50 @@
 # DSA (Data Structures & Algorithms)
 
-This repository contains Python implementations of fundamental Data Structures and Algorithms (DSA). It serves as a collection of essential problem-solving techniques, useful for coding interviews and competitive programming.
+This repository contains Python implementations of popular data structures and algorithms for learning, practice, and interview prep.
 
-📌 Topics Covered:
+---
 
-✔ Arrays – Basic operations and manipulations
+## 📁 Folder Overview
 
-✔ Sorting Algorithms – Bubble Sort, Quick Sort, Merge Sort, etc.
+### 🔸 Data Structures
+- `LL_queue` – Queue using Linked List
+- `Linear_queue` – Simple queue using array
+- `LinkedList` – Singly Linked List operations
+- `Stack_LL` – Stack implemented via Linked List
 
-✔ Searching Algorithms – Binary Search, Linear Search, etc.
+### 🔸 Puzzle
+- `TOH` – Tower of Hanoi
+- `Minesweeper` – Logic of the classic game
 
-✔ Tower of Hanoi (TOH) – Recursive solution
+### 🔸 Searching
+- `BinarySearch`
+- `InterpolationSearch`
+- `LinearSearch`
 
-✔ Data Structures - Linked List , Stack (implementted using LL)
+### 🔸 Sorting
+- `BubbleSort`
+- `BucketSort`
+- `CountSort`
+- `InsertionSort`
+- `MergeSort`
+- `Quicksort`
+- `RadixSort`
+- `SelectionSort`
 
-🛠 Features:
-Pure Python implementations
+### 🔸 Tree
+- `AVL Tree`
+- `BinarySearchTree`
+- `Binary Tree` (both array and linked list implementations)
 
-Well-structured and easy-to-understand code snippets
+### 🔸 Other Algorithms
+- Miscellaneous algorithm solutions
 
-Focused on efficiency and fundamental problem-solving
+---
 
-🔗 Feel free to explore, contribute, and use these implementations for learning and practice!
+## 💻 How to Use
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/CodeByD3v/Data-Structure-Algorithm.git
+
 
